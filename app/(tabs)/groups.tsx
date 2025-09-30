@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
-import MyGroups from "../../components/mygroups/MyGroups";  
+import Explore from "@/Pages/Explore";
 import { useState } from "react";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import MyGroups from "../../components/mygroups/MyGroups";
 
 export default function Groups() {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -39,8 +40,8 @@ export default function Groups() {
       </View>
 
       {/* Content */}
-      <View style={{ flex: 1 }}>
-        {selectedTab === 1 && <Text>This is the Explore page</Text>}
+      <View style={{ flex: 1}}>
+        {selectedTab === 1 && <Explore />}
         {selectedTab === 2 && <MyGroups />}
         {selectedTab === 3 && <Text>Requests content goes here</Text>}
       </View>
@@ -51,7 +52,7 @@ export default function Groups() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "pink",
+    backgroundColor: "#FFF",
   },
   tabs: {
     height: 47,

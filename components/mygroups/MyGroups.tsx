@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import GroupsList from "./GroupsList";
 
 export default function MyGroups() {
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
-    paddingHorizontal: 16,
-    paddingTop: 24,
+    // paddingHorizontal: 16,
+    // paddingTop: 24,
   },
   section: {
     width: "100%",
