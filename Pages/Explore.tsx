@@ -2,25 +2,43 @@ import ScrollDots from "@/components/mygroups/ScrollDots";
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
-    Dimensions,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  Dimensions,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 
+// ────────────────────────────────────────────────
+// 📏 Constants
+// ────────────────────────────────────────────────
 const { width } = Dimensions.get("window");
+const CARD_WIDTH = 140;
+const HERO_HEIGHT = 88;
+const PAGE_MARGIN = 16;
+const PAGE_WIDTH = width - PAGE_MARGIN * 2;
 
-// split array into chunks of `size`
+// ────────────────────────────────────────────────
+// 🧩 Helper Functions
+// ────────────────────────────────────────────────
+/**
+ * Splits an array into smaller chunks.
+ * Example: chunkArray([1,2,3,4,5], 2) → [[1,2],[3,4],[5]]
+ */
 const chunkArray = (arr: any[], size: number) => {
   const out: any[][] = [];
-  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+  for (let i = 0; i < arr.length; i += size) {
+    out.push(arr.slice(i, i + size));
+  }
   return out;
 };
 
+// ────────────────────────────────────────────────
+// 🚀 Component
+// ────────────────────────────────────────────────
 export default function Explore() {
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -30,21 +48,26 @@ export default function Explore() {
     { id: 3, groupName: "GTA Global", members: "560 Members", color: "#CFF4D2" },
     { id: 4, groupName: "Hyderabad Sports", members: "320 Members", color: "#CFE0FF" },
     { id: 5, groupName: "GTA Startups", members: "210 Members", color: "#FFE0B8" },
+    { id: 11, groupName: "GTA CityName", members: "884 Members", color: "#FFE7A6" },
+    { id: 22, groupName: "Hyderabad Fig", members: "148 Members", color: "#FFD4D7" },
+    { id: 33, groupName: "GTA Global", members: "560 Members", color: "#CFF4D2" },
+    { id: 44, groupName: "Hyderabad Sports", members: "320 Members", color: "#CFE0FF" },
+    { id: 55, groupName: "GTA Startups", members: "210 Members", color: "#FFE0B8" },
   ];
 
   // 4 per page → 2 rows × 2 cards
   const pages = chunkArray(recommendations, 4);
 
+  // ───────────────────────────────
+  // 🧱 Renders a single group card
+  // ───────────────────────────────
   const renderCard = (item: any) => (
     <View key={item.id} style={styles.cardWrapper}>
-      {/* Outer white card with shadow */}
       <View style={[styles.card, styles.shadow]}>
-        {/* Colored top panel with centered icon */}
         <View style={[styles.hero, { backgroundColor: item.color }]}>
           <MaterialIcons name="groups" size={32} color="#E53935" />
         </View>
 
-        {/* White meta area */}
         <View style={styles.meta}>
           <Text style={styles.groupName}>{item.groupName}</Text>
           <Text style={styles.members}>{item.members}</Text>
@@ -53,21 +76,27 @@ export default function Explore() {
     </View>
   );
 
+  // ───────────────────────────────
+  // 📜 Handles scroll pagination
+  // ───────────────────────────────
   const handleScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offsetX = e.nativeEvent.contentOffset.x;
-    const pageIndex = Math.round(offsetX / (width - 32)); // page width
+    const pageIndex = Math.round(offsetX / PAGE_WIDTH);
     setCurrentPage(pageIndex);
   };
 
+  // ───────────────────────────────
+  // 🖼️ Render
+  // ───────────────────────────────
   return (
     <View style={styles.container}>
-      {/* Headings */}
+      {/* Header */}
       <View style={styles.headings}>
         <Text style={styles.title}>Recommendations</Text>
         <Text style={styles.subtitle}>Based on your locations and interests</Text>
       </View>
 
-      {/* Horizontal pages */}
+      {/* Carousel Pages */}
       <ScrollView
         horizontal
         pagingEnabled
@@ -88,51 +117,90 @@ export default function Explore() {
         })}
       </ScrollView>
 
-      {/* Fixed dots */}
+      {/* Dots */}
       <ScrollDots currentDot={currentPage + 1} totalDots={pages.length} />
     </View>
   );
 }
 
-const CARD_WIDTH = 140;
-const HERO_HEIGHT = 88; // colored area height
-
+// ────────────────────────────────────────────────
+// 🎨 Styles
+// ────────────────────────────────────────────────
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
+    paddingHorizontal: PAGE_MARGIN,
     backgroundColor: "#FFF",
   },
-  headings: { marginBottom: 12 },
-  title: { color: "#434343", fontWeight: "800", fontSize: 16 },
-  subtitle: { color: "#989898", fontWeight: "400", fontSize: 14 },
 
-  page: { width: width - 32 },
-  row: { flexDirection: "row", justifyContent: "space-between", marginBottom: 16 },
+  // ── Headings ────────────────────
+  headings: {
+    marginBottom: 12,
+  },
+  title: {
+    color: "#434343",
+    fontWeight: "800",
+    fontSize: 16,
+  },
+  subtitle: {
+    color: "#989898",
+    fontWeight: "400",
+    fontSize: 14,
+  },
 
-  cardWrapper: { width: CARD_WIDTH, marginHorizontal: 6 },
+  // ── Page Layout ─────────────────
+  page: {
+    width: PAGE_WIDTH,
+    // backgroundColor:"red"
+  },
+  row: {
+    flexDirection: "row",
+    // justifyContent: "space-between",
+    marginBottom: 16,
+  },
 
+  // ── Cards ───────────────────────
+  cardWrapper: {
+    width: CARD_WIDTH,
+    marginHorizontal: 12,
+  },
   card: {
     width: CARD_WIDTH,
     borderRadius: 12,
     backgroundColor: "#FFF",
-    overflow: "hidden",          // clip hero corners
-    borderWidth: 1,              // subtle border like Figma
+    overflow: "hidden",
+    borderWidth: 1,
     borderColor: "#ECECEC",
   },
-
   hero: {
     height: HERO_HEIGHT,
     justifyContent: "center",
     alignItems: "center",
   },
+  meta: {
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    backgroundColor: "#FFF",
+  },
+  groupName: {
+    color: "#000",
+    fontSize: 14,
+    fontWeight: "700",
+  },
+  members: {
+    color: "#434343",
+    fontSize: 12,
+    fontWeight: "500",
+    marginTop: 2,
+  },
 
-  meta: { paddingHorizontal: 10, paddingVertical: 8, backgroundColor: "#FFF" },
-
-  groupName: { color: "#000", fontSize: 14, fontWeight: "700" },
-  members: { color: "#434343", fontSize: 12, fontWeight: "500", marginTop: 2 },
-
+  // ── Shadow ──────────────────────
   shadow: Platform.select({
-    ios: { shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.12, shadowRadius: 6 },
+    ios: {
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.12,
+      shadowRadius: 6,
+    },
     android: { elevation: 3 },
   }) as object,
 });

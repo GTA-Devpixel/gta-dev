@@ -1,8 +1,8 @@
-import {View, Text, StyleSheet } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 export default function menu() {
   return (
     <View style={styles.container}>
-        <Text>This is the menu tab</Text>
+        <Text>This page is comming soon ...</Text>
     </View>
   )
 }
@@ -10,6 +10,6 @@ export default function menu() {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:"yellow"
+        // backgroundColor:"yellow"
     }
 })
