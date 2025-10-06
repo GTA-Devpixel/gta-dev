@@ -44,10 +44,10 @@ export default function Index() {
   ]
 
   const groups = [
-    { id: 1, image: require("@/assets/images/gta1.jpg"), name: "GTA Telangana", members: 148 },
-    { id: 2, image: require("@/assets/images/gta2.jpeg"), name: "GTA Hyderabad", members: 82 },
-    { id: 3, image: require("@/assets/images/gta3.jpg"), name: "GTA Kondapur", members: 48 },
-    { id: 4, image: require("@/assets/images/gta4.jpg"), name: "GTA Global", members: 210 },
+    { id: 1, image: require("@/assets/images/gtadp1.png"), name: "GTA Telangana", members: 148 },
+    { id: 2, image: require("@/assets/images/gtadp2.png"), name: "GTA Hyderabad", members: 82 },
+    { id: 3, image: require("@/assets/images/gtadp3.png"), name: "GTA Kondapur", members: 48 },
+    // { id: 4, image: require("@/assets/images/gtadp4.jpg"), name: "GTA Global", members: 210 },
   ]
 
   return (
