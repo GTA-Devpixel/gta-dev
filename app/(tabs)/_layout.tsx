@@ -1,33 +1,37 @@
-import { Tabs } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Image } from "expo-image";
-import { View } from "react-native";
+import { Tabs } from "expo-router";
+import { Image, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const accountImage = require("../../assets/images/account-image1.png");
 
 export default function TabsLayout() {
+  const insets = useSafeAreaInsets(); // 👈 ensures proper handling when app resumes
+
   return (
     <Tabs
       screenOptions={{
         tabBarStyle: {
-  height: 86,
-  paddingTop: 12,
-  paddingBottom: 8,
-  paddingHorizontal: 12,
-  borderTopWidth: 1,          // 👈 better than borderWidth
-  borderColor: "#DADADA",
-  backgroundColor: "#FFF",
-  position: "absolute",       // 👈 ensures fixed placement
-},
-
+          height: 70 + insets.bottom, // 👈 dynamically includes safe area
+          paddingTop: 8,
+          paddingBottom: insets.bottom > 0 ? insets.bottom - 4 : 8, // 👈 stable padding
+          borderTopWidth: 1,
+          borderColor: "#DADADA",
+          backgroundColor: "#FFF",
+          position: "absolute",
+        },
         tabBarActiveTintColor: "#EA2934",
-
+        tabBarInactiveTintColor: "#888",
+        tabBarLabelStyle: {
+          fontSize: 12,
+          marginBottom: 2,
+        },
         headerBackground: () => (
           <View
             style={{
               flex: 1,
               backgroundColor: "#FFF",
-              borderBottomWidth: 2,
+              borderBottomWidth: 1,
               borderBottomColor: "#DADADA",
             }}
           />
@@ -46,10 +50,9 @@ export default function TabsLayout() {
               marginRight: 12,
               borderRadius: 20,
             }}
-            contentFit="contain"
           />
         ),
-        headerShadowVisible: false, // disable default shadow
+        headerShadowVisible: false,
         headerTintColor: "#000",
       }}
     >
@@ -58,7 +61,7 @@ export default function TabsLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="home" color={color} size={28} />
+            <MaterialIcons name="home" color={color} size={26} />
           ),
         }}
       />
@@ -67,7 +70,7 @@ export default function TabsLayout() {
         options={{
           title: "Groups",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="groups" color={color} size={28} />
+            <MaterialIcons name="groups" color={color} size={26} />
           ),
         }}
       />
@@ -76,7 +79,7 @@ export default function TabsLayout() {
         options={{
           title: "Events",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="event" color={color} size={28} />
+            <MaterialIcons name="event" color={color} size={26} />
           ),
         }}
       />
@@ -84,12 +87,11 @@ export default function TabsLayout() {
         name="donate"
         options={{
           title: "Donate",
-          tabBarLabelPosition: "below-icon",
           tabBarIcon: ({ color }) => (
             <MaterialIcons
               name="volunteer-activism"
               color={color}
-              size={28}
+              size={26}
             />
           ),
         }}
@@ -98,9 +100,8 @@ export default function TabsLayout() {
         name="menu"
         options={{
           title: "Menu",
-          tabBarLabelPosition: "below-icon",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="settings" color={color} size={24} />
+            <MaterialIcons name="settings" color={color} size={26} />
           ),
         }}
       />
