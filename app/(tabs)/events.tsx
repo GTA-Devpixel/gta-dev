@@ -1,15 +1,16 @@
 import SearchBar from "@/components/ui/SearchBar";
 import Tabs from "@/components/ui/Tabs";
-
 import Explore from "@/events/Explore";
 import MyEvents from "@/events/MyEvents";
 import SavedEvents from "@/events/SavedEvents";
 
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Events() {
   const [selectedTab, setSelectedTab] = useState(0);
+  const insets = useSafeAreaInsets();
 
   const renderContent = () => {
     switch (selectedTab) {
@@ -25,7 +26,12 @@ export default function Events() {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { paddingBottom: insets.bottom + 80 }, // ✅ safe + dynamic
+      ]}
+    >
       {/* Tabs */}
       <View style={styles.tabs}>
         <Tabs
@@ -39,7 +45,7 @@ export default function Events() {
         />
       </View>
 
-      {/* SearchBar (common across all tabs) */}
+      {/* SearchBar */}
       <View style={styles.searchBar}>
         <SearchBar
           placeholder="Search events..."
@@ -48,9 +54,7 @@ export default function Events() {
       </View>
 
       {/* Conditional Content */}
-      <View style={styles.content}>
-        {renderContent()}
-      </View>
+      <View style={styles.content}>{renderContent()}</View>
     </View>
   );
 }

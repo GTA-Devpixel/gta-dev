@@ -1,9 +1,14 @@
-import EventImageCard from "@/components/ui/EventImageCard"
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native"
+import ScrollDots from "@/components/mygroups/ScrollDots";
+import EventImageCard from "@/components/ui/EventImageCard";
+import Headdings from "@/components/ui/headdings";
+import React, { useState } from "react";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 const { width } = Dimensions.get("window")
 
 export default function Index() {
+  const [currentDot, setCurrentDot] = useState(0);
+
   const events = [
     {
       id: 1,
@@ -43,6 +48,13 @@ export default function Index() {
     },
   ]
 
+  // update current dot when scroll finishes
+  const handleScrollEnd = (e) => {
+    const offsetX = e.nativeEvent.contentOffset.x;
+    const pageIndex = Math.round(offsetX / width);
+    setCurrentDot(pageIndex);
+  };
+
   const groups = [
     { id: 1, image: require("@/assets/images/gtadp1.png"), name: "GTA Telangana", members: 148 },
     { id: 2, image: require("@/assets/images/gtadp2.png"), name: "GTA Hyderabad", members: 82 },
@@ -51,16 +63,18 @@ export default function Index() {
   ]
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* Upcoming Events */}
       <Text style={styles.title}>Upcoming Events</Text>
       <ScrollView
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
+        style={{ padding:0,margin:0,maxHeight:300}}
+        onMomentumScrollEnd={handleScrollEnd}   // <- use momentum end for paging
       >
         {events.map((event) => (
-          <View key={event.id} style={{ width, padding: 16 }}>
+          <View key={event.id} style={{ width, padding: 16, height:300 }}>
             <EventImageCard
               image={event.image}
               title={event.title}
@@ -74,9 +88,10 @@ export default function Index() {
           </View>
         ))}
       </ScrollView>
+      <ScrollDots totalDots={events.length} currentDot={currentDot+1}/>
 
       {/* My Groups */}
-      <Text style={styles.title}>My Groups</Text>
+      <Text style={styles.title}>Favorate Groups</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingVertical: 12 }}>
         {groups.map((group) => (
           <View key={group.id} style={styles.groupCard}>
@@ -86,7 +101,13 @@ export default function Index() {
           </View>
         ))}
       </ScrollView>
-    </View>
+
+      <Headdings title="Tredding Posts" subtitle="lorem ipsum "/>
+
+      
+     
+      
+    </ScrollView>
   )
 }
 
@@ -94,6 +115,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+    marginBottom:60
   },
   title: {
     fontSize: 16,
@@ -112,7 +134,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 16,
-    marginBottom: 6,
+    // marginBottom: 6,
   },
   groupName: {
     fontSize: 14,
