@@ -1,8 +1,9 @@
 import Explore from "@/Pages/Explore";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import MyGroups from "../../components/mygroups/MyGroups";
+import MyGroups from "@/components/mygroups/MyGroups";
 import { horizontalScale, moderateScale, verticalScale } from "../../theme/Metrics";
+import Button from "@components/ui/Button"
 
 export default function Groups() {
   const [selectedTab, setSelectedTab] = useState(1);
