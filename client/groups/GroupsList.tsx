@@ -1,7 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { horizontalScale, moderateScale, verticalScale } from "../../theme/Metrics";
+import { horizontalScale, moderateScale, verticalScale } from "../theme/Metrics";
 
 export default function GroupsList({ name, members, events, updates, color }: any) {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { horizontalScale, moderateScale, verticalScale } from "../../theme/Metrics";
+import { horizontalScale, moderateScale, verticalScale } from "../theme/Metrics";
 import GroupsList from "./GroupsList";
 
 export default function MyGroups() {

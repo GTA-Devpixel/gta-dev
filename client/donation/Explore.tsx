@@ -1,4 +1,4 @@
-import ScrollDots from "@/components/mygroups/ScrollDots";
+import ScrollDots from "../components/ui/ScrollDots";
 import DonationEventsCard from "@/components/ui/DonationEventsCard";
 import EventCampaignCard from "@/components/ui/EventCampaignCard";
 import React, { useState } from "react";

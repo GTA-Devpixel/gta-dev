@@ -1,15 +1,5 @@
-import { StyleSheet, Text, View } from "react-native"
-export default function menu() {
-  return (
-    <View style={styles.container}>
-        <Text>This page is comming soon ...</Text>
-    </View>
-  )
-}
+import MenuScreen from "../../menu/index";
 
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        // backgroundColor:"yellow"
-    }
-})
+export default function Menu() {
+  return <MenuScreen />;
+}

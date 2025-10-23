@@ -1,4 +1,4 @@
-import ScrollDots from '@/components/mygroups/ScrollDots'
+import ScrollDots from "../components/ui/ScrollDots";
 import EventCard from '@/components/ui/EventCard'
 import EventListItem from '@/components/ui/EventListItem'
 import Headdings from '@/components/ui/headdings'

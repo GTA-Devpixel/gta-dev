@@ -1,4 +1,4 @@
-import ScrollDots from "@/components/mygroups/ScrollDots";
+import ScrollDots from "../components/ui/ScrollDots";
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {

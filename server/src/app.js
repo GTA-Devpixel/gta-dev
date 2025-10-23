@@ -44,8 +44,8 @@ app.use("/api/auth", authRoutes);
 // Protected routes (require token)
 app.use("/api/groups", authenticate, groupRoutes);
 app.use("/api/posts", authenticate, postRoutes);
-app.use("/api/events", authenticate, eventRoutes);
-app.use("/api/campaigns", authenticate, campaignRoutes);
+app.use("/api/events", eventRoutes);
+app.use("/api/campaigns", campaignRoutes);
 
 // ========== ERROR HANDLER ==========
 app.use(errorHandler);
